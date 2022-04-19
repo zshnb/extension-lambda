@@ -1,0 +1,30 @@
+name: Gradle CI
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  gradle_ci:
+    name: Gradle build test
+    runs-on: ubuntu-latest
+    container: node:10.18-jessie
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+          cache: gradle
+      - name: Append raw.githubcontent.com
+        run: |
+          echo 185.199.111.133 raw.githubusercontent.com >> /etc/hosts
+          echo 185.199.110.133 raw.githubusercontent.com >> /etc/hosts
+          echo 185.199.109.133 raw.githubusercontent.com >> /etc/hosts
+          echo 185.199.108.133 raw.githubusercontent.com >> /etc/hosts
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Build with Gradle
+        run: ./gradlew clean build test
