@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ public class MapTest extends BaseTest {
 
     @Test
     public void mapSuccessful() {
-        List<Integer> integers = map(pairs, Pair::getLeft);
+        List<Integer> integers = map(pairs, Pair::getLeft).collect(Collectors.toList());
         Assertions.assertEquals(3, integers.size());
         Assertions.assertEquals(1, integers.get(0));
     }
@@ -32,7 +33,7 @@ public class MapTest extends BaseTest {
     @Test
     public void mapNotNullSuccessful() {
         pairs = new ArrayList<>(Arrays.asList(Pair.pair(1, "1"), null, Pair.pair(3, "3")));
-        List<Integer> integers = mapNotNull(pairs, Pair::getLeft);
+        List<Integer> integers = mapNotNull(pairs, Pair::getLeft).collect(Collectors.toList());
         Assertions.assertEquals(2, integers.size());
         Assertions.assertEquals(1, integers.get(0));
     }
@@ -43,7 +44,7 @@ public class MapTest extends BaseTest {
         List<Integer> integers = mapIndex(pairs, (index, pair) -> {
             Assertions.assertEquals(index, atomicInteger.getAndIncrement());
             return pair.getLeft();
-        });
+        }).collect(Collectors.toList());
         Assertions.assertEquals(3, integers.size());
         Assertions.assertEquals(1, integers.get(0));
     }
