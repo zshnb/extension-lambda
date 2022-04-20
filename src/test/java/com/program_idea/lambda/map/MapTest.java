@@ -15,8 +15,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class MapTest extends BaseTest {
-
-
     @Test
     public void mapSuccessful() {
         List<Integer> integers = map(pairs, Pair::getLeft).collect(Collectors.toList());
