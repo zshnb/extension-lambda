@@ -12,17 +12,9 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 public class MapTest extends BaseTest {
-    private static List<Pair<Integer, String>> pairs;
-
-    @BeforeAll
-    static void setup() {
-        pairs = List.of(Pair.pair(1, "1"), Pair.pair(2, "2"), Pair.pair(3, "3"));
-    }
-
     @Test
     public void mapSuccessful() {
         List<Integer> integers = map(pairs, Pair::getLeft).collect(Collectors.toList());
