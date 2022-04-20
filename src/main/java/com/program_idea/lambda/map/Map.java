@@ -6,6 +6,9 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+/**
+ * short useful methods for Java 8 some lambda api
+ * */
 public class Map {
     public static <T, R> Stream<R> map(List<T> list, Function<? super T, ? extends R> mapper) {
         List<R> result = new ArrayList<>();
