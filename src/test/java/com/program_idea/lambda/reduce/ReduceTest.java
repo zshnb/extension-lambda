@@ -12,4 +12,10 @@ public class ReduceTest extends BaseTest {
         int result = Reduce.reduce(integers, 0, Integer::sum);
         Assertions.assertEquals(15, result);
     }
+
+    @Test
+    public void successfulWithBiFunction() {
+        int result = Reduce.reduce(pairs, 0, (acc, pair) -> acc += pair.getLeft());
+        Assertions.assertEquals(6, result);
+    }
 }
