@@ -40,4 +40,19 @@ public class MapTest extends BaseTest {
         Assertions.assertEquals(3, integers.size());
         Assertions.assertEquals(1, integers.get(0));
     }
+
+    @Test
+    public void mapKeySuccessful() {
+        java.util.Map<Integer, Integer> map = java.util.Map.of(1, 1, 2, 2, 3, 3);
+        java.util.Map<String, Integer> anotherMap = Map.mapKey(map, entry -> entry.getKey().toString());
+        Assertions.assertTrue(anotherMap.containsKey("1"));
+        Assertions.assertEquals(1, anotherMap.get("1"));
+    }
+
+    @Test
+    public void mapValueSuccessful() {
+        java.util.Map<Integer, Integer> map = java.util.Map.of(1, 1, 2, 2, 3, 3);
+        java.util.Map<Integer, String> anotherMap = Map.mapValue(map, entry -> entry.getKey().toString());
+        Assertions.assertEquals("1", anotherMap.get(1));
+    }
 }
