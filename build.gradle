@@ -1,5 +1,6 @@
 plugins {
-    id 'java'
+    id 'java-library'
+    id 'maven-publish'
 }
 
 group 'com.zshnb'
@@ -12,6 +13,28 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            def releasesRepoUrl = 'http://119.45.26.94:8000/repository/maven-releases/'
+            def snapshotsRepoUrl = 'http://119.45.26.94:8000/repository/maven-snapshots/'
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+            name 'nexus'
+            url url
+            allowInsecureProtocol true
+            credentials {
+                username 'admin'
+                password 'admin'
+            }
+        }
+    }
 }
 
 test {
